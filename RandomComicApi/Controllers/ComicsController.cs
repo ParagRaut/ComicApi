@@ -5,7 +5,7 @@ namespace XkcdComicsApi.Controllers
 {
     
     [ApiController]
-    [Route("[controller]/GetComics")]
+    [Route("[controller]")]
     public class ComicsController : ControllerBase
     {
         public ComicsController(IComicService comicService)
