@@ -23,9 +23,7 @@ namespace RandomComicApi
         {
             services.AddControllers();
             
-            services.AddHttpClient<IXKCD, XKCD>();
-            services.AddHttpClient<IGetGarfieldComics, GetGarfieldComics>();
-
+            services.AddHttpClient<IXKCD, XKCD>();            
             services.AddSingleton<IXKCD, XKCD>(p =>
             {
                 var httpClient = p.GetRequiredService<IHttpClientFactory>()
