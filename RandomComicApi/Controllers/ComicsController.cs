@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomComicApi.ComicServices;
 
-namespace XkcdComicsApi.Controllers
+namespace RandomComicApi.Controllers
 {
     
     [ApiController]
