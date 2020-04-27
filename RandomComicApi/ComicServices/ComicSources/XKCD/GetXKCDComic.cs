@@ -34,10 +34,19 @@ namespace RandomComicApi.ComicServices.ComicSources.XKCD
             return null;
         }
 
+        private int GetLatestComicId()
+        {
+            var response = this.XKCDService.GetLatestComic();
+
+            return (int)response.Num.Value;
+
+        }
+
         private int GetRandomComicNumber()
         {
+            var maxId = this.GetLatestComicId();
             var randomNumber = new Random();
-            return (int)randomNumber.Next(2298);
+            return (int)randomNumber.Next(maxId);
         }
 
         private async Task<FileResult> DownloadImageAndReturn(int comicId)
