@@ -11,4 +11,7 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Folder Include="ComicServices\ComicSources\DilbertComics\" />
+  </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RandomComicApi.ComicServices;
+using RandomComicApi.ComicServices.ComicSources.DilbertComics;
 using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
 using RandomComicApi.ComicServices.ComicSources.XKCD;
 
@@ -33,6 +34,7 @@ namespace RandomComicApi
             });
             services.AddSingleton<IGetXKCDComic, GetXKCDComic>();
             services.AddSingleton<IGetGarfieldComics, GetGarfieldComics>();
+            services.AddSingleton<IGetGDilbertComics, GetGDilbertComics>();
             services.AddSingleton<IComicService, ComicService>();            
         }
 

@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
 
-namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
+namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
 {
-    public class GetGarfieldComics : IGetGarfieldComics
+    public class GetGDilbertComics : IGetGDilbertComics
     {
-        public GetGarfieldComics()
+        public GetGDilbertComics()
         {
             this.BaseUri = new Uri("https://discordians-api.herokuapp.com/comic");
         }
@@ -18,16 +18,17 @@ namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
 
         private ComicModel ComicModel { get; set; }
 
-
-        public FileResult GetGarfieldComic()
+        public FileResult GetDilbertComic()
         {
-            var comicUri = new Uri($"{this.BaseUri}/garfield");
+            var comicUri = new Uri($"{this.BaseUri}/dilbert");
 
             using (var httpClient = new HttpClient())
             {
                 var response = httpClient.GetStringAsync(comicUri).Result;
-               this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
+                this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
             }
+
+            this.ComicModel.image = $"https:{this.ComicModel.image}.png";
 
             byte[] imageBytes;
 
@@ -39,7 +40,7 @@ namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
             MemoryStream memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/gif");
-        }
+        }        
 
     }
 }
