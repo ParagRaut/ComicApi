@@ -9,9 +9,5 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="ComicServices\ComicSources\DilbertComics\" />
-  </ItemGroup>
+ 
 </Project>
