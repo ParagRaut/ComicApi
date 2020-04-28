@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicServices;
 using RandomComicApi.ComicServices.ComicSources.DilbertComics;
 using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
@@ -38,8 +39,10 @@ namespace RandomComicApi
             services.AddSingleton<IComicService, ComicService>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddFile("Logs/ComicsApiLog-{Date}.log");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

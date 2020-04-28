@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicServices.ComicSources;
 using RandomComicApi.ComicServices.ComicSources.DilbertComics;
 using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
@@ -12,11 +13,13 @@ namespace RandomComicApi.ComicServices
     {
         public ComicService([NotNull] IXkcdComic xkcdComic,
             [NotNull] IGarfieldComics garfieldComics,
-            [NotNull] IDilbertComics gDilbertComics)
+            [NotNull] IDilbertComics gDilbertComics,
+            ILogger<ComicService> logger)
         {
             this.XkcdComicsService = xkcdComic;
             this.GarfieldComicsService = garfieldComics;
             this.DilbertComicsService = gDilbertComics;
+            this._logger = logger;
         }
 
         private IXkcdComic XkcdComicsService { get; }
@@ -26,6 +29,9 @@ namespace RandomComicApi.ComicServices
         private IDilbertComics DilbertComicsService { get; }
 
         private FileResult ComicImage { get; set; }
+
+        private readonly ILogger _logger;
+
 
         public FileResult GetRandomComic()
         {
@@ -43,8 +49,11 @@ namespace RandomComicApi.ComicServices
                     this.ComicImage = this.GetDilbertComic();
                     break;
                 default:
+                    this._logger.LogInformation("Argument exception is thrown");
                     throw new ArgumentOutOfRangeException();
             }
+
+            this._logger.LogInformation($"Returning {comicName} comic strip");
 
             return this.ComicImage;
         }
