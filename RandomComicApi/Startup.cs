@@ -15,7 +15,7 @@ namespace RandomComicApi
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -23,19 +23,19 @@ namespace RandomComicApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
-            services.AddHttpClient<IXKCD, XKCD>();            
+
+            services.AddHttpClient<IXKCD, XKCD>();
             services.AddSingleton<IXKCD, XKCD>(p =>
             {
-                var httpClient = p.GetRequiredService<IHttpClientFactory>()
+                HttpClient httpClient = p.GetRequiredService<IHttpClientFactory>()
                     .CreateClient(nameof(IXKCD));
 
                 return new XKCD(httpClient, true);
             });
-            services.AddSingleton<IGetXKCDComic, GetXKCDComic>();
-            services.AddSingleton<IGetGarfieldComics, GetGarfieldComics>();
-            services.AddSingleton<IGetGDilbertComics, GetGDilbertComics>();
-            services.AddSingleton<IComicService, ComicService>();            
+            services.AddSingleton<IXkcdComic, XkcdComic>();
+            services.AddSingleton<IGarfieldComics, GarfieldComics>();
+            services.AddSingleton<IDilbertComics, DilbertComics>();
+            services.AddSingleton<IComicService, ComicService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

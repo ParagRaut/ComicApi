@@ -2,7 +2,7 @@
 
 namespace RandomComicApi.ComicServices.ComicSources.XKCD
 {
-    public interface IGetXKCDComic
+    public interface IXkcdComic
     {
         FileResult GetXkcdComic();
     }

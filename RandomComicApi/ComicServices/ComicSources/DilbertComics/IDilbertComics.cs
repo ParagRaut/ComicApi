@@ -2,7 +2,7 @@
 
 namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
 {
-    public interface IGetGDilbertComics
+    public interface IDilbertComics
     {
         FileResult GetDilbertComic();
     }

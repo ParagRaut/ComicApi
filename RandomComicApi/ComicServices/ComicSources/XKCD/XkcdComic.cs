@@ -1,34 +1,31 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RandomComicApi.ComicServices.ComicSources.XKCD.Models;
 
 namespace RandomComicApi.ComicServices.ComicSources.XKCD
 {
-    public class GetXKCDComic : IGetXKCDComic
+    public class XkcdComic : IXkcdComic
     {
-        public GetXKCDComic(IXKCD xKCDComics)
+        public XkcdComic(IXKCD xKcdComics)
         {
-            this.XKCDService = xKCDComics;
+            this.XkcdService = xKcdComics;
         }
 
-        private IXKCD XKCDService { get; set; }
+        private IXKCD XkcdService { get; }
 
         public FileResult GetXkcdComic()
         {
             int comicId = this.GetRandomComicNumber();
 
-            using (var comicImageFile = this.DownloadImageAndReturn(comicId))
+            using (Task<FileResult> comicImageFile = this.DownloadImageAndReturn(comicId))
             {
                 if (comicImageFile.Status != TaskStatus.RanToCompletion && !comicImageFile.IsFaulted)
-                {
                     comicImageFile.Wait();
-                }
-                if (comicImageFile.Status == TaskStatus.RanToCompletion)
-                {
-                    return comicImageFile.Result;
-                }
+                if (comicImageFile.Status == TaskStatus.RanToCompletion) return comicImageFile.Result;
             }
 
             return null;
@@ -36,22 +33,22 @@ namespace RandomComicApi.ComicServices.ComicSources.XKCD
 
         private int GetLatestComicId()
         {
-            var response = this.XKCDService.GetLatestComic();
+            Comic response = this.XkcdService.GetLatestComic();
+            Debug.Assert(response.Num != null, "response.Num != null");
 
             return (int)response.Num.Value;
-
         }
 
         private int GetRandomComicNumber()
         {
-            var maxId = this.GetLatestComicId();
+            int maxId = this.GetLatestComicId();
             var randomNumber = new Random();
-            return (int)randomNumber.Next(maxId);
+            return randomNumber.Next(maxId);
         }
 
         private async Task<FileResult> DownloadImageAndReturn(int comicId)
         {
-            var comicImage = await this.XKCDService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
 
             var imgUrl = new Uri(comicImage.Img, UriKind.Absolute);
 
@@ -62,7 +59,7 @@ namespace RandomComicApi.ComicServices.ComicSources.XKCD
                 imageBytes = webClient.DownloadData(imgUrl);
             }
 
-            MemoryStream memoryStream = new MemoryStream(imageBytes);
+            var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/png");
         }

@@ -1,61 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc;
 using RandomComicApi.ComicServices.ComicSources;
 using RandomComicApi.ComicServices.ComicSources.DilbertComics;
 using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
 using RandomComicApi.ComicServices.ComicSources.XKCD;
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace RandomComicApi.ComicServices
 {
     public class ComicService : IComicService
     {
-        public ComicService([NotNull] IGetXKCDComic getXKCDComic,
-                            [NotNull] IGetGarfieldComics garfieldComics,
-                            [NotNull] IGetGDilbertComics getGDilbertComics)
+        public ComicService([NotNull] IXkcdComic xkcdComic,
+            [NotNull] IGarfieldComics garfieldComics,
+            [NotNull] IDilbertComics gDilbertComics)
         {
-            this.XKCDService = getXKCDComic;
+            this.XkcdComicsService = xkcdComic;
             this.GarfieldComicsService = garfieldComics;
-            this.DilbertComicsService = getGDilbertComics;
+            this.DilbertComicsService = gDilbertComics;
         }
 
-        private IGetXKCDComic XKCDService { get; set; }
+        private IXkcdComic XkcdComicsService { get; }
 
-        private IGetGarfieldComics GarfieldComicsService { get; set; }
+        private IGarfieldComics GarfieldComicsService { get; }
 
-        private IGetGDilbertComics DilbertComicsService { get; set; }
+        private IDilbertComics DilbertComicsService { get; }
 
         private FileResult ComicImage { get; set; }
 
         public FileResult GetRandomComic()
         {
-            var comicName = this.ChooseRandomComicSource();
+            ComicEnum comicName = this.ChooseRandomComicSource();
 
             switch (comicName)
             {
                 case ComicEnum.Garfield:
                     this.ComicImage = this.GetGarfieldComic();
                     break;
-                case ComicEnum.XKCD:
+                case ComicEnum.Xkcd:
                     this.ComicImage = this.GetXkcdComic();
                     break;
                 case ComicEnum.Dilbert:
                     this.ComicImage = this.GetDilbertComic();
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
-            return ComicImage;
+            return this.ComicImage;
         }
 
         private ComicEnum ChooseRandomComicSource()
         {
             var random = new Random();
-            return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
+            return (ComicEnum) random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
         private FileResult GetXkcdComic()
         {
-            this.ComicImage = this.XKCDService.GetXkcdComic();
+            this.ComicImage = this.XkcdComicsService.GetXkcdComic();
             return this.ComicImage;
         }
 

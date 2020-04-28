@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Net;
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Net.Http;
 
-namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
+namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
 {
-    public class GetGDilbertComics : IGetGDilbertComics
+    public class GarfieldComics : IGarfieldComics
     {
-        public GetGDilbertComics()
+        public GarfieldComics()
         {
             this.BaseUri = new Uri("https://discordians-api.herokuapp.com/comic");
         }
 
-        private Uri BaseUri { get; set; }
+        private Uri BaseUri { get; }
 
         private ComicModel ComicModel { get; set; }
-
-        public FileResult GetDilbertComic()
+        
+        public FileResult GetGarfieldComic()
         {
-            var comicUri = new Uri($"{this.BaseUri}/dilbert");
+            var comicUri = new Uri($"{this.BaseUri}/garfield");
 
             using (var httpClient = new HttpClient())
             {
-                var response = httpClient.GetStringAsync(comicUri).Result;
+                string response = httpClient.GetStringAsync(comicUri).Result;
                 this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
             }
-
-            this.ComicModel.image = $"https:{this.ComicModel.image}.png";
 
             byte[] imageBytes;
 
@@ -37,10 +35,9 @@ namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
                 imageBytes = response.DownloadData(this.ComicModel.image);
             }
 
-            MemoryStream memoryStream = new MemoryStream(imageBytes);
+            var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/gif");
-        }        
-
+        }
     }
 }

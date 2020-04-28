@@ -3,7 +3,6 @@ using RandomComicApi.ComicServices;
 
 namespace RandomComicApi.Controllers
 {
-    
     [ApiController]
     [Route("[controller]")]
     public class ComicsController : ControllerBase
@@ -13,13 +12,12 @@ namespace RandomComicApi.Controllers
             this.ComicService = comicService;
         }
 
-        IComicService ComicService { get; set; }
+        private IComicService ComicService { get; }
 
         [HttpGet]
         public FileResult Get()
         {
-            return this.ComicService.GetRandomComic();   
-        }      
-
+            return this.ComicService.GetRandomComic();
+        }
     }
 }

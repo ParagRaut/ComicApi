@@ -4,6 +4,6 @@ namespace RandomComicApi.ComicServices
 {
     public interface IComicService
     {
-        FileResult GetRandomComic();        
+        FileResult GetRandomComic();
     }
 }

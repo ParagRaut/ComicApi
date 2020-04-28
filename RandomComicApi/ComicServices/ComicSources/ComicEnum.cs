@@ -1,10 +1,9 @@
-﻿
-namespace RandomComicApi.ComicServices.ComicSources
+﻿namespace RandomComicApi.ComicServices.ComicSources
 {
     public enum ComicEnum
     {
         Garfield,
-        XKCD,
+        Xkcd,
         Dilbert
     }
 }

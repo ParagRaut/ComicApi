@@ -2,7 +2,7 @@
 
 namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
 {
-    public interface IGetGarfieldComics
+    public interface IGarfieldComics
     {
         FileResult GetGarfieldComic();
     }
