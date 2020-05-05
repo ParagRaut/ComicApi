@@ -39,7 +39,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/dilbert")]
-        public string GetDilbert()
+        public string GetDilbertComicUri()
         {
             this._logger.LogInformation("Fetching Dilbert comic uri...");
             return this.ComicUrlService.GetDilbertComic();
@@ -47,7 +47,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/garfield")]
-        public string GetGarfield()
+        public string GetGarfieldComicUri()
         {
             this._logger.LogInformation("Fetching Garfield comic uri...");
             return this.ComicUrlService.GetGarfieldComic();
@@ -55,7 +55,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/xkcd")]
-        public string GetXkcd()
+        public string GetXkcdComicUri()
         {
             this._logger.LogInformation("Fetching XKCD comic uri...");
             return this.ComicUrlService.GetXkcdComic();
