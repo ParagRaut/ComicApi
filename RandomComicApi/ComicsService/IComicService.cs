@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RandomComicApi.ComicServices
+namespace RandomComicApi.ComicsService
 {
     public interface IComicService
     {

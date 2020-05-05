@@ -4,9 +4,9 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RandomComicApi.ComicServices.ComicSources.XKCD.Models;
+using RandomComicApi.ComicsService.ComicSources.XKCD.Models;
 
-namespace RandomComicApi.ComicServices.ComicSources.XKCD
+namespace RandomComicApi.ComicsService.ComicSources.XKCD
 {
     public class XkcdComic : IXkcdComic
     {
@@ -24,8 +24,34 @@ namespace RandomComicApi.ComicServices.ComicSources.XKCD
             using (Task<FileResult> comicImageFile = this.DownloadImageAndReturn(comicId))
             {
                 if (comicImageFile.Status != TaskStatus.RanToCompletion && !comicImageFile.IsFaulted)
+                {
                     comicImageFile.Wait();
-                if (comicImageFile.Status == TaskStatus.RanToCompletion) return comicImageFile.Result;
+                }
+
+                if (comicImageFile.Status == TaskStatus.RanToCompletion)
+                {
+                    return comicImageFile.Result;
+                }
+            }
+
+            return null;
+        }
+
+        public string GetXkcdComicUri()
+        {
+            int comicId = this.GetRandomComicNumber();
+
+            using (Task<string> comicImageFile = this.GetImageUri(comicId))
+            {
+                if (comicImageFile.Status != TaskStatus.RanToCompletion && !comicImageFile.IsFaulted)
+                {
+                    comicImageFile.Wait();
+                }
+
+                if (comicImageFile.Status == TaskStatus.RanToCompletion)
+                {
+                    return comicImageFile.Result;
+                }
             }
 
             return null;
@@ -62,6 +88,13 @@ namespace RandomComicApi.ComicServices.ComicSources.XKCD
             var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/png");
+        }
+
+        private async Task<string> GetImageUri(int comicId)
+        {
+            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+
+            return comicImage.Img;
         }
     }
 }

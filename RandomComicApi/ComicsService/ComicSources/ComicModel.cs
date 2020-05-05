@@ -1,4 +1,4 @@
-﻿namespace RandomComicApi.ComicServices.ComicSources
+﻿namespace RandomComicApi.ComicsService.ComicSources
 {
     public class ComicModel
     {

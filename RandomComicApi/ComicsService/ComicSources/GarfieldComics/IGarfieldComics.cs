@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
+namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
     public interface IGarfieldComics
     {
         FileResult GetGarfieldComic();
+        string GetGarfieldComicUri();
     }
 }

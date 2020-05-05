@@ -5,10 +5,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using RandomComicApi.ComicServices;
-using RandomComicApi.ComicServices.ComicSources.DilbertComics;
-using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
-using RandomComicApi.ComicServices.ComicSources.XKCD;
+using RandomComicApi.ComicsService;
+using RandomComicApi.ComicsService.ComicSources.DilbertComics;
+using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
+using RandomComicApi.ComicsService.ComicSources.XKCD;
 
 namespace RandomComicApi
 {
@@ -37,6 +37,7 @@ namespace RandomComicApi
             services.AddSingleton<IGarfieldComics, GarfieldComics>();
             services.AddSingleton<IDilbertComics, DilbertComics>();
             services.AddSingleton<IComicService, ComicService>();
+            services.AddSingleton<IComicUrlService, ComicUrlService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)

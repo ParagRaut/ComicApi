@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace RandomComicApi.ComicServices.ComicSources.XKCD
+namespace RandomComicApi.ComicsService.ComicSources.XKCD
 {
     using Models;
     using System.Threading;

@@ -5,7 +5,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
+namespace RandomComicApi.ComicsService.ComicSources.DilbertComics
 {
     public class DilbertComics : IDilbertComics
     {
@@ -40,6 +40,21 @@ namespace RandomComicApi.ComicServices.ComicSources.DilbertComics
             var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/gif");
+        }
+
+        public string GetDilbertComicUri()
+        {
+            var comicUri = new Uri($"{this.BaseUri}/dilbert");
+
+            using (var httpClient = new HttpClient())
+            {
+                string response = httpClient.GetStringAsync(comicUri).Result;
+                this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
+            }
+            
+            this.ComicModel.image = $"https:{this.ComicModel.image}.png";
+
+            return this.ComicModel.image;
         }
     }
 }

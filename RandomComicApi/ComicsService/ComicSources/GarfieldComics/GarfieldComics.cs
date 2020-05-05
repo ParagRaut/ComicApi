@@ -5,7 +5,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
+namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
     public class GarfieldComics : IGarfieldComics
     {
@@ -38,6 +38,19 @@ namespace RandomComicApi.ComicServices.ComicSources.GarfieldComics
             var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/gif");
+        }
+
+        public string GetGarfieldComicUri()
+        {
+            var comicUri = new Uri($"{this.BaseUri}/garfield");
+
+            using (var httpClient = new HttpClient())
+            {
+                string response = httpClient.GetStringAsync(comicUri).Result;
+                this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
+            }
+
+            return this.ComicModel.image;
         }
     }
 }

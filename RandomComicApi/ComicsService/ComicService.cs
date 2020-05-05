@@ -2,12 +2,12 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RandomComicApi.ComicServices.ComicSources;
-using RandomComicApi.ComicServices.ComicSources.DilbertComics;
-using RandomComicApi.ComicServices.ComicSources.GarfieldComics;
-using RandomComicApi.ComicServices.ComicSources.XKCD;
+using RandomComicApi.ComicsService.ComicSources;
+using RandomComicApi.ComicsService.ComicSources.DilbertComics;
+using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
+using RandomComicApi.ComicsService.ComicSources.XKCD;
 
-namespace RandomComicApi.ComicServices
+namespace RandomComicApi.ComicsService
 {
     public class ComicService : IComicService
     {

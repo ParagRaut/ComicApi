@@ -4,7 +4,7 @@
 // regenerated.
 // </auto-generated>
 
-namespace RandomComicApi.ComicServices.ComicSources.XKCD
+namespace RandomComicApi.ComicsService.ComicSources.XKCD
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
