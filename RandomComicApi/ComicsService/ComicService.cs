@@ -65,19 +65,19 @@ namespace RandomComicApi.ComicsService
             return (ComicEnum) random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
-        private Task<FileResult> GetXkcdComic()
+        public Task<FileResult> GetXkcdComic()
         {
             this.ComicImage = this.XkcdComicsService.GetXkcdComic();
             return this.ComicImage;
         }
 
-        private Task<FileResult> GetGarfieldComic()
+        public Task<FileResult> GetGarfieldComic()
         {
             this.ComicImage = this.GarfieldComicsService.GetGarfieldComic();
             return this.ComicImage;
         }
 
-        private Task<FileResult> GetDilbertComic()
+        public Task<FileResult> GetDilbertComic()
         {
             this.ComicImage = this.DilbertComicsService.GetDilbertComic();
             return this.ComicImage;

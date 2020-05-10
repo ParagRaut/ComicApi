@@ -31,6 +31,30 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [Route("[controller]/dilbertstrip")]
+        public Task<FileResult> GetDilbertComicImage()
+        {
+            this._logger.LogInformation("Fetching Dilbert comic image...");
+            return this.ComicService.GetDilbertComic();
+        }
+
+        [HttpGet]
+        [Route("[controller]/garfieldstrip")]
+        public Task<FileResult> GetGarfieldComicImage()
+        {
+            this._logger.LogInformation("Fetching Garfield comic image...");
+            return this.ComicService.GetGarfieldComic();
+        }
+
+        [HttpGet]
+        [Route("[controller]/xkcdstrip")]
+        public Task<FileResult> GetXkcdComicImage()
+        {
+            this._logger.LogInformation("Fetching XKCD comic image...");
+            return this.ComicService.GetXkcdComic();
+        }
+        
+        [HttpGet]
         [Route("[controller]/random")]
         public Task<string> GetRandomComicUri()
         {
