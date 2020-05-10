@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -18,40 +19,37 @@ namespace RandomComicApi.ComicsService.ComicSources.DilbertComics
 
         private ComicModel ComicModel { get; set; }
 
-        public FileResult GetDilbertComic()
+        public async Task<FileResult> GetDilbertComic()
         {
             var comicUri = new Uri($"{this.BaseUri}/dilbert");
 
-            using (var httpClient = new HttpClient())
-            {
-                string response = httpClient.GetStringAsync(comicUri).Result;
-                this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
-            }
-
+            var httpClient = new HttpClient();
+            var response = await httpClient.GetStringAsync(comicUri);
+            this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
+            
             this.ComicModel.image = $"https:{this.ComicModel.image}.png";
 
             byte[] imageBytes;
 
-            using (var response = new WebClient())
-            {
-                imageBytes = response.DownloadData(this.ComicModel.image);
-            }
+            var responseData = new WebClient();
+            imageBytes = responseData.DownloadData(this.ComicModel.image);
 
             var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/gif");
         }
 
-        public string GetDilbertComicUri()
+        public async Task<string> GetDilbertComicUri()
         {
             var comicUri = new Uri($"{this.BaseUri}/dilbert");
 
-            using (var httpClient = new HttpClient())
-            {
-                string response = httpClient.GetStringAsync(comicUri).Result;
-                this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
-            }
-            
+
+            var httpClient = new HttpClient();
+
+            string response = await httpClient.GetStringAsync(comicUri);
+            this.ComicModel = JsonConvert.DeserializeObject<ComicModel>(response);
+
+
             this.ComicModel.image = $"https:{this.ComicModel.image}.png";
 
             return this.ComicModel.image;

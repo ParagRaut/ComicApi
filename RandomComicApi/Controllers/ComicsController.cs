@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicsService;
 
@@ -23,7 +24,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/randomstrip")]
-        public FileResult GetRandomComicImage()
+        public Task<FileResult> GetRandomComicImage()
         {
             this._logger.LogInformation("Fetching random comic image...");
             return this.ComicService.GetRandomComic();
@@ -31,7 +32,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/random")]
-        public string GetRandomComicUri()
+        public Task<string> GetRandomComicUri()
         {
             this._logger.LogInformation("Fetching random comic uri...");
             return this.ComicUrlService.GetRandomComic();
@@ -39,7 +40,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/dilbert")]
-        public string GetDilbertComicUri()
+        public Task<string> GetDilbertComicUri()
         {
             this._logger.LogInformation("Fetching Dilbert comic uri...");
             return this.ComicUrlService.GetDilbertComic();
@@ -47,7 +48,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/garfield")]
-        public string GetGarfieldComicUri()
+        public Task<string> GetGarfieldComicUri()
         {
             this._logger.LogInformation("Fetching Garfield comic uri...");
             return this.ComicUrlService.GetGarfieldComic();
@@ -55,7 +56,7 @@ namespace RandomComicApi.Controllers
 
         [HttpGet]
         [Route("[controller]/xkcd")]
-        public string GetXkcdComicUri()
+        public Task<string> GetXkcdComicUri()
         {
             this._logger.LogInformation("Fetching XKCD comic uri...");
             return this.ComicUrlService.GetXkcdComic();

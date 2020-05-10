@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RandomComicApi.ComicsService.ComicSources.DilbertComics
 {
     public interface IDilbertComics
     {
-        FileResult GetDilbertComic();
-        string GetDilbertComicUri();
+        Task<FileResult> GetDilbertComic();
+        Task<string> GetDilbertComicUri();
     }
 }

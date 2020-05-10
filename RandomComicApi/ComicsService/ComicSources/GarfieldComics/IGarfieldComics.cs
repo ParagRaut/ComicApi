@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
     public interface IGarfieldComics
     {
-        FileResult GetGarfieldComic();
-        string GetGarfieldComicUri();
+        Task<FileResult> GetGarfieldComic();
+        Task<string> GetGarfieldComicUri();
     }
 }

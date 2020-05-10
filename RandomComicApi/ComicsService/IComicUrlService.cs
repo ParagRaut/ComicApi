@@ -1,10 +1,12 @@
-﻿namespace RandomComicApi.ComicsService
+﻿using System.Threading.Tasks;
+
+namespace RandomComicApi.ComicsService
 {
     public interface IComicUrlService
     {
-        string GetRandomComic();
-        string GetDilbertComic();
-        string GetGarfieldComic();
-        string GetXkcdComic();
+        Task<string> GetRandomComic();
+        Task<string> GetDilbertComic();
+        Task<string> GetGarfieldComic();
+        Task<string> GetXkcdComic();
     }
 }

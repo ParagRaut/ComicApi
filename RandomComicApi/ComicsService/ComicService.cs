@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicsService.ComicSources;
@@ -28,12 +29,12 @@ namespace RandomComicApi.ComicsService
 
         private IDilbertComics DilbertComicsService { get; }
 
-        private FileResult ComicImage { get; set; }
+        private Task<FileResult> ComicImage { get; set; }
 
         private readonly ILogger _logger;
 
 
-        public FileResult GetRandomComic()
+        public Task<FileResult> GetRandomComic()
         {
             ComicEnum comicName = this.ChooseRandomComicSource();
 
@@ -64,19 +65,19 @@ namespace RandomComicApi.ComicsService
             return (ComicEnum) random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
-        private FileResult GetXkcdComic()
+        private Task<FileResult> GetXkcdComic()
         {
             this.ComicImage = this.XkcdComicsService.GetXkcdComic();
             return this.ComicImage;
         }
 
-        private FileResult GetGarfieldComic()
+        private Task<FileResult> GetGarfieldComic()
         {
             this.ComicImage = this.GarfieldComicsService.GetGarfieldComic();
             return this.ComicImage;
         }
 
-        private FileResult GetDilbertComic()
+        private Task<FileResult> GetDilbertComic()
         {
             this.ComicImage = this.DilbertComicsService.GetDilbertComic();
             return this.ComicImage;

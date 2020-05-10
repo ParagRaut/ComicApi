@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace RandomComicApi.ComicsService
 {
     public interface IComicService
     {
-        FileResult GetRandomComic();
+        Task<FileResult> GetRandomComic();
     }
 }

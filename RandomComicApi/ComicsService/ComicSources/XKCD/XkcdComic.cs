@@ -17,9 +17,9 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
 
         private IXKCD XkcdService { get; }
 
-        public FileResult GetXkcdComic()
+        public async Task<FileResult> GetXkcdComic()
         {
-            int comicId = this.GetRandomComicNumber();
+            int comicId = await this.GetRandomComicNumber();
 
             using (Task<FileResult> comicImageFile = this.DownloadImageAndReturn(comicId))
             {
@@ -37,41 +37,36 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
             return null;
         }
 
-        public string GetXkcdComicUri()
+        public async Task<string> GetXkcdComicUri()
         {
-            int comicId = this.GetRandomComicNumber();
+            int comicId = await this.GetRandomComicNumber();
 
-            using (Task<string> comicImageFile = this.GetImageUri(comicId))
-            {
-                if (comicImageFile.Status != TaskStatus.RanToCompletion && !comicImageFile.IsFaulted)
-                {
-                    comicImageFile.Wait();
-                }
-
-                if (comicImageFile.Status == TaskStatus.RanToCompletion)
-                {
-                    return comicImageFile.Result;
-                }
-            }
-
-            return null;
+            string comicImageUri = await this.GetImageUri(comicId);
+            
+            return comicImageUri;
         }
 
-        private int GetLatestComicId()
+        private async Task<int> GetLatestComicId()
         {
-            Comic response = this.XkcdService.GetLatestComic();
+            Comic response = await this.XkcdService.GetLatestComicAsync();
             Debug.Assert(response.Num != null, "response.Num != null");
 
             return (int)response.Num.Value;
         }
 
-        private int GetRandomComicNumber()
+        private async Task<int> GetRandomComicNumber()
         {
-            int maxId = this.GetLatestComicId();
+            int maxId = await this.GetLatestComicId();
             var randomNumber = new Random();
             return randomNumber.Next(maxId);
         }
 
+        private async Task<string> GetImageUri(int comicId)
+        {
+            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+
+            return comicImage.Img;
+        }
         private async Task<FileResult> DownloadImageAndReturn(int comicId)
         {
             Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
@@ -88,13 +83,6 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
             var memoryStream = new MemoryStream(imageBytes);
 
             return new FileStreamResult(memoryStream, "image/png");
-        }
-
-        private async Task<string> GetImageUri(int comicId)
-        {
-            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
-
-            return comicImage.Img;
         }
     }
 }
