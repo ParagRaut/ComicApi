@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace RandomComicApi.ComicsService
+namespace ComicsAppWasm.ComicsService
 {
     public interface IComicUrlService
     {

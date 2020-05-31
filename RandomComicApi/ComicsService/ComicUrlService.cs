@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using ComicsAppWasm.ComicsService;
 using Microsoft.Extensions.Logging;
-using RandomComicApi.ComicsService.ComicSources;
 using RandomComicApi.ComicsService.ComicSources.DilbertComics;
 using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
 using RandomComicApi.ComicsService.ComicSources.XKCD;
@@ -13,13 +13,13 @@ namespace RandomComicApi.ComicsService
     {
         public ComicUrlService([NotNull] IXkcdComic xkcdComic,
             [NotNull] IGarfieldComics garfieldComics,
-            [NotNull] IDilbertComics gDilbertComics,
+            [NotNull] IDilbertComics dilbertComics,
             ILogger<ComicUrlService> logger)
         {
-            this.XkcdComicsService = xkcdComic;
-            this.GarfieldComicsService = garfieldComics;
-            this.DilbertComicsService = gDilbertComics;
-            this._logger = logger;
+            XkcdComicsService = xkcdComic;
+            GarfieldComicsService = garfieldComics;
+            DilbertComicsService = dilbertComics;
+            _logger = logger;
         }
 
         private IXkcdComic XkcdComicsService { get; }
@@ -34,27 +34,27 @@ namespace RandomComicApi.ComicsService
 
         public Task<string> GetRandomComic()
         {
-            ComicEnum comicName = this.ChooseRandomComicSource();
+            ComicEnum comicName = ChooseRandomComicSource();
 
             switch (comicName)
             {
                 case ComicEnum.Garfield:
-                    this.ComicImageUri = this.GetGarfieldComic();
+                    ComicImageUri = GetGarfieldComic();
                     break;
                 case ComicEnum.Xkcd:
-                    this.ComicImageUri = this.GetXkcdComic();
+                    ComicImageUri = GetXkcdComic();
                     break;
                 case ComicEnum.Dilbert:
-                    this.ComicImageUri = this.GetDilbertComic();
+                    ComicImageUri = GetDilbertComic();
                     break;
                 default:
-                    this._logger.LogInformation("Argument exception is thrown");
+                    _logger.LogInformation("Argument exception is thrown");
                     throw new ArgumentOutOfRangeException();
             }
 
-            this._logger.LogInformation($"Returning {comicName} comic strip");
+            _logger.LogInformation($"Returning {comicName} comic strip");
 
-            return this.ComicImageUri;
+            return ComicImageUri;
         }
 
         private ComicEnum ChooseRandomComicSource()
@@ -65,20 +65,24 @@ namespace RandomComicApi.ComicsService
 
         public Task<string> GetDilbertComic()
         {
-            this._logger.LogInformation($"Returning Dilbert comic strip");
-            return this.DilbertComicsService.GetDilbertComicUri();
+            _logger.LogInformation($"Returning Dilbert comic strip");
+            return DilbertComicsService.GetDilbertComicUri();
         }
 
         public Task<string> GetGarfieldComic()
         {
-            this._logger.LogInformation($"Returning Garfield comic strip");
-            return this.GarfieldComicsService.GetGarfieldComicUri();
+            _logger.LogInformation($"Returning Garfield comic strip");
+
+            return Task.Run(() =>
+            {
+                return GarfieldComicsService.GetGarfieldComicUri();
+            });
         }
 
         public Task<string> GetXkcdComic()
         {
-            this._logger.LogInformation($"Returning XKCD comic strip");
-            return this.XkcdComicsService.GetXkcdComicUri();
+            _logger.LogInformation($"Returning XKCD comic strip");
+            return XkcdComicsService.GetXkcdComicUri();
         }
     }
 }

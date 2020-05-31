@@ -8,51 +8,17 @@ namespace RandomComicApi.Controllers
     [ApiController]    
     public class ComicsController : ControllerBase
     {
-        public ComicsController(IComicService comicService,
+        public ComicsController(
             IComicUrlService comicUrlService,
             ILogger<ComicsController> logger)
         {
-            this.ComicService = comicService;
             this.ComicUrlService = comicUrlService;
             this._logger = logger;
         }
 
-        private IComicService ComicService { get; }
         private IComicUrlService ComicUrlService { get; }
 
         private readonly ILogger _logger;
-
-        [HttpGet]
-        [Route("[controller]/randomstrip")]
-        public Task<FileResult> GetRandomComicImage()
-        {
-            this._logger.LogInformation("Fetching random comic image...");
-            return this.ComicService.GetRandomComic();
-        }
-
-        [HttpGet]
-        [Route("[controller]/dilbertstrip")]
-        public Task<FileResult> GetDilbertComicImage()
-        {
-            this._logger.LogInformation("Fetching Dilbert comic image...");
-            return this.ComicService.GetDilbertComic();
-        }
-
-        [HttpGet]
-        [Route("[controller]/garfieldstrip")]
-        public Task<FileResult> GetGarfieldComicImage()
-        {
-            this._logger.LogInformation("Fetching Garfield comic image...");
-            return this.ComicService.GetGarfieldComic();
-        }
-
-        [HttpGet]
-        [Route("[controller]/xkcdstrip")]
-        public Task<FileResult> GetXkcdComicImage()
-        {
-            this._logger.LogInformation("Fetching XKCD comic image...");
-            return this.ComicService.GetXkcdComic();
-        }
         
         [HttpGet]
         [Route("[controller]/random")]
