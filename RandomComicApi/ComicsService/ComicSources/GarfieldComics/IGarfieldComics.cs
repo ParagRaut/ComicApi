@@ -1,4 +1,5 @@
-﻿namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
+﻿
+namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
     public interface IGarfieldComics
     {
