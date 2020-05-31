@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using ComicsAppWasm.ComicsService.ComicSources.DilbertComics;
 using RandomComicApi.ComicsService.ComicSources.DilbertComics.DilbertService;
 
 namespace RandomComicApi.ComicsService.ComicSources.DilbertComics

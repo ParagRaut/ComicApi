@@ -36,7 +36,6 @@ namespace RandomComicApi
             services.AddSingleton<IXkcdComic, XkcdComic>();
             services.AddSingleton<IGarfieldComics, GarfieldComics>();
             services.AddSingleton<IDilbertComics, DilbertComics>();
-            services.AddSingleton<IComicService, ComicService>();
             services.AddSingleton<IComicUrlService, ComicUrlService>();
         }
 

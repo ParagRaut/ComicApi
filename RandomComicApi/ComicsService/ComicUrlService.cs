@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using ComicsAppWasm.ComicsService;
 using Microsoft.Extensions.Logging;
+using RandomComicApi.ComicsService.ComicSources;
 using RandomComicApi.ComicsService.ComicSources.DilbertComics;
 using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
 using RandomComicApi.ComicsService.ComicSources.XKCD;

@@ -1,5 +1,4 @@
-﻿using ComicsAppWasm.ComicsService.ComicSources.GarfieldComics;
-using RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldService;
+﻿using RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldService;
 
 namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
