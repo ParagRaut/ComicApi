@@ -8,5 +8,6 @@ namespace RandomComicApi.ComicsService
         Task<string> GetDilbertComic();
         Task<string> GetGarfieldComic();
         Task<string> GetXkcdComic();
+        Task<string> GetCalvinAndHobbesComic();
     }
 }

@@ -51,5 +51,13 @@ namespace RandomComicApi.Controllers
             this._logger.LogInformation("Fetching XKCD comic uri...");
             return this.ComicUrlService.GetXkcdComic();
         }
+
+        [HttpGet]
+        [Route("[controller]/calvinandhobbes")]
+        public Task<string> GetCalvinAndHobbesComicUri()
+        {
+            this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
+            return this.ComicUrlService.GetCalvinAndHobbesComic();
+        }
     }
 }

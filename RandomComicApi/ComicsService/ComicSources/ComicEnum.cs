@@ -5,6 +5,7 @@ namespace RandomComicApi.ComicsService.ComicSources
     {
         Garfield,
         Xkcd,
-        Dilbert
+        Dilbert,
+        CalvinAndHobbes
     }
 }
