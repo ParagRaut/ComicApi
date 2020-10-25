@@ -79,7 +79,7 @@ namespace RandomComicApi.ComicsService
         {
             this._logger.LogInformation($"Returning Garfield comic strip");
 
-            return Task.Run(() => this.GarfieldComicsService.GetGarfieldComicUri());
+            return this.GarfieldComicsService.GetGarfieldComicUri();
         }
 
         public Task<string> GetXkcdComic()

@@ -1,8 +1,10 @@
 ﻿
+using System.Threading.Tasks;
+
 namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics
 {
     public interface IGarfieldComics
     {
-        string GetGarfieldComicUri();
+        Task<string> GetGarfieldComicUri();
     }
 }
