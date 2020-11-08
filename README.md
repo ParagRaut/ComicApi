@@ -6,9 +6,10 @@ To build/run this, you need to have .netcore 3.1 or higher installed
 Visit following url to download appropriate .netcore sdk version <br/>
 URL: https://dotnet.microsoft.com/download/dotnet-core
 
-After cloning project goto root directory i.e.
+To run:
 
 ```zsh
+git clone https://github.com/ParagRaut/RandomComicApi.git
 cd RandomComicApi/RandomComicApi/
 dotnet build
 dotnet run
