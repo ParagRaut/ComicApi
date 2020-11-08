@@ -10,7 +10,7 @@ To run:
 
 ```zsh
 git clone https://github.com/ParagRaut/RandomComicApi.git
-cd RandomComicApi/RandomComicApi/
+cd RandomComicApi/src/
 dotnet build
 dotnet run
 ```
