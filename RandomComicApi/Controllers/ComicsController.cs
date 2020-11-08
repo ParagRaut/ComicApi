@@ -23,6 +23,7 @@ namespace RandomComicApi.Controllers
         private readonly ILogger _logger;
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/random")]
@@ -43,6 +44,7 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/dilbert")]
@@ -63,6 +65,7 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/garfield")]
@@ -83,6 +86,7 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/xkcd")]
@@ -103,6 +107,7 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/calvinandhobbes")]
