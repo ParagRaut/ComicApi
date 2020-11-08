@@ -22,42 +22,47 @@ namespace RandomComicApi.Controllers
         
         [HttpGet]
         [Route("[controller]/random")]
-        public Task<string> GetRandomComicUri()
+        public async Task<IActionResult> GetRandomComicUri()
         {
             this._logger.LogInformation("Fetching random comic uri...");
-            return this.ComicUrlService.GetRandomComic();
+
+            return Ok(await this.ComicUrlService.GetRandomComic());
         }
 
         [HttpGet]
         [Route("[controller]/dilbert")]
-        public Task<string> GetDilbertComicUri()
+        public async Task<IActionResult> GetDilbertComicUri()
         {
             this._logger.LogInformation("Fetching Dilbert comic uri...");
-            return this.ComicUrlService.GetDilbertComic();
+
+            return Ok(await this.ComicUrlService.GetDilbertComic());
         }
 
         [HttpGet]
         [Route("[controller]/garfield")]
-        public Task<string> GetGarfieldComicUri()
+        public async Task<IActionResult> GetGarfieldComicUri()
         {
             this._logger.LogInformation("Fetching Garfield comic uri...");
-            return this.ComicUrlService.GetGarfieldComic();
+
+            return Ok(await this.ComicUrlService.GetGarfieldComic());
         }
 
         [HttpGet]
         [Route("[controller]/xkcd")]
-        public Task<string> GetXkcdComicUri()
+        public async Task<IActionResult> GetXkcdComicUri()
         {
             this._logger.LogInformation("Fetching XKCD comic uri...");
-            return this.ComicUrlService.GetXkcdComic();
+
+            return Ok(await this.ComicUrlService.GetXkcdComic());
         }
 
         [HttpGet]
         [Route("[controller]/calvinandhobbes")]
-        public Task<string> GetCalvinAndHobbesComicUri()
+        public async Task<IActionResult> GetCalvinAndHobbesComicUri()
         {
             this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
-            return this.ComicUrlService.GetCalvinAndHobbesComic();
+
+            return Ok(await this.ComicUrlService.GetCalvinAndHobbesComic());
         }
     }
 }

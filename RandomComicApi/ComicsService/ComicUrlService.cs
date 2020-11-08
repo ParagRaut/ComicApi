@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using RandomComicApi.ComicsService.ComicSources;
 using RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
 using RandomComicApi.ComicsService.ComicSources.DilbertComics;
@@ -31,6 +32,7 @@ namespace RandomComicApi.ComicsService
         private IGarfieldComics GarfieldComicsService { get; }
 
         private IDilbertComics DilbertComicsService { get; }
+
         private ICalvinAndHobbesComics CalvinAndHobbesComicsService { get; }
 
         private Task<string> ComicImageUri { get; set; }
@@ -69,28 +71,48 @@ namespace RandomComicApi.ComicsService
             return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
         }
 
-        public Task<string> GetDilbertComic()
+        public async Task<string> GetDilbertComic()
         {
             this._logger.LogInformation($"Returning Dilbert comic strip");
-            return this.DilbertComicsService.GetDilbertComicUri();
+
+            var uri = await this.DilbertComicsService.GetDilbertComicUri();
+
+            return SerializeComic(uri);
+
         }
 
-        public Task<string> GetGarfieldComic()
+        public async Task<string> GetGarfieldComic()
         {
             this._logger.LogInformation($"Returning Garfield comic strip");
 
-            return this.GarfieldComicsService.GetGarfieldComicUri();
+            var uri = await this.GarfieldComicsService.GetGarfieldComicUri();
+
+            return SerializeComic(uri);
         }
 
-        public Task<string> GetXkcdComic()
+        public async Task<string> GetXkcdComic()
         {
             this._logger.LogInformation($"Returning XKCD comic strip");
-            return this.XkcdComicsService.GetXkcdComicUri();
+
+            var uri = await this.XkcdComicsService.GetXkcdComicUri();
+
+            return SerializeComic(uri);
         }
-        public Task<string> GetCalvinAndHobbesComic()
+
+        public async Task<string> GetCalvinAndHobbesComic()
         {
             this._logger.LogInformation($"Returning Calvin and Hobbes comic strip");
-            return this.CalvinAndHobbesComicsService.CalvinAndHobbesComicUri();
+
+            var uri = await this.CalvinAndHobbesComicsService.CalvinAndHobbesComicUri();
+
+            return SerializeComic(uri);
+        }
+
+        private string SerializeComic(string uri)
+        {
+            var comicUri = new ComicModel { ComicUrl = uri };
+
+            return JsonConvert.SerializeObject(comicUri);
         }
     }
 }
