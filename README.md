@@ -15,8 +15,7 @@ dotnet build
 dotnet run
 ```
 
-Goto this address on web browser of your choice <br/>
-URL: https://localhost:5001 or http://localhost:5000
+Swagger UI will run automatically in browser for you to try out all endpoints
 
 For Docker support use Visual Studio on Windows
 
