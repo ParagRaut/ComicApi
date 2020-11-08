@@ -16,7 +16,6 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "Comics",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -24,7 +23,6 @@
     "RandomComicApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "Comics",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -33,7 +31,6 @@
     "IIS Full": {
       "commandName": "IIS",
       "launchBrowser": true,
-      "launchUrl": "Comics",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

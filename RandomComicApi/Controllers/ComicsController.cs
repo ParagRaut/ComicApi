@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicsService;
@@ -22,6 +23,8 @@ namespace RandomComicApi.Controllers
         private readonly ILogger _logger;
 
         [HttpGet]
+        [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/random")]
         public async Task<IActionResult> GetRandomComicUri()
         {
@@ -40,6 +43,8 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/dilbert")]
         public async Task<IActionResult> GetDilbertComicUri()
         {
@@ -58,6 +63,8 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/garfield")]
         public async Task<IActionResult> GetGarfieldComicUri()
         {
@@ -76,6 +83,8 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/xkcd")]
         public async Task<IActionResult> GetXkcdComicUri()
         {
@@ -94,6 +103,8 @@ namespace RandomComicApi.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(typeof(ComicModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status500InternalServerError)]
         [Route("[controller]/calvinandhobbes")]
         public async Task<IActionResult> GetCalvinAndHobbesComicUri()
         {
