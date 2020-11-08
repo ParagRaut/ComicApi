@@ -75,44 +75,28 @@ namespace RandomComicApi.ComicsService
         {
             this._logger.LogInformation($"Returning Dilbert comic strip");
 
-            var uri = await this.DilbertComicsService.GetDilbertComicUri();
-
-            return SerializeComic(uri);
-
+            return await this.DilbertComicsService.GetDilbertComicUri();
         }
 
         public async Task<string> GetGarfieldComic()
         {
             this._logger.LogInformation($"Returning Garfield comic strip");
 
-            var uri = await this.GarfieldComicsService.GetGarfieldComicUri();
-
-            return SerializeComic(uri);
+            return await this.GarfieldComicsService.GetGarfieldComicUri();
         }
 
         public async Task<string> GetXkcdComic()
         {
             this._logger.LogInformation($"Returning XKCD comic strip");
 
-            var uri = await this.XkcdComicsService.GetXkcdComicUri();
-
-            return SerializeComic(uri);
+            return await this.XkcdComicsService.GetXkcdComicUri();
         }
 
         public async Task<string> GetCalvinAndHobbesComic()
         {
             this._logger.LogInformation($"Returning Calvin and Hobbes comic strip");
 
-            var uri = await this.CalvinAndHobbesComicsService.CalvinAndHobbesComicUri();
-
-            return SerializeComic(uri);
-        }
-
-        private string SerializeComic(string uri)
-        {
-            var comicUri = new ComicModel { ComicUrl = uri };
-
-            return JsonConvert.SerializeObject(comicUri);
+            return await this.CalvinAndHobbesComicsService.CalvinAndHobbesComicUri();
         }
     }
 }

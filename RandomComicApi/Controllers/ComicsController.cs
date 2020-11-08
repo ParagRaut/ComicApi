@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicsService;
 
 namespace RandomComicApi.Controllers
 {
-    [ApiController]    
+    [ApiController]
     public class ComicsController : ControllerBase
     {
         public ComicsController(
@@ -19,50 +20,95 @@ namespace RandomComicApi.Controllers
         private IComicUrlService ComicUrlService { get; }
 
         private readonly ILogger _logger;
-        
+
         [HttpGet]
         [Route("[controller]/random")]
         public async Task<IActionResult> GetRandomComicUri()
         {
-            this._logger.LogInformation("Fetching random comic uri...");
+            try
+            {
+                this._logger.LogInformation("Fetching random comic uri...");
 
-            return Ok(await this.ComicUrlService.GetRandomComic());
+                return Ok(new { comicUrl = await this.ComicUrlService.GetRandomComic() });
+            }
+            catch (Exception exception)
+            {
+                this._logger.LogError("Error while processing request.", exception);
+
+                return StatusCode(500, new { errorMessage = "Something went wrong" });
+            }
         }
 
         [HttpGet]
         [Route("[controller]/dilbert")]
         public async Task<IActionResult> GetDilbertComicUri()
         {
-            this._logger.LogInformation("Fetching Dilbert comic uri...");
+            try
+            {
+                this._logger.LogInformation("Fetching Dilbert comic uri...");
 
-            return Ok(await this.ComicUrlService.GetDilbertComic());
+                return Ok(new { comicUrl = await this.ComicUrlService.GetDilbertComic() });
+            }
+            catch (Exception exception)
+            {
+                this._logger.LogError("Error while processing request.", exception);
+
+                return StatusCode(500, new { errorMessage = "Something went wrong" });
+            }
         }
 
         [HttpGet]
         [Route("[controller]/garfield")]
         public async Task<IActionResult> GetGarfieldComicUri()
         {
-            this._logger.LogInformation("Fetching Garfield comic uri...");
+            try
+            {
+                this._logger.LogInformation("Fetching Garfield comic uri...");
 
-            return Ok(await this.ComicUrlService.GetGarfieldComic());
+                return Ok(new { comicUrl = await this.ComicUrlService.GetGarfieldComic() });
+            }
+            catch (Exception exception)
+            {
+                this._logger.LogError("Error while processing request.", exception);
+
+                return StatusCode(500, new { errorMessage = "Something went wrong" });
+            }
         }
 
         [HttpGet]
         [Route("[controller]/xkcd")]
         public async Task<IActionResult> GetXkcdComicUri()
         {
-            this._logger.LogInformation("Fetching XKCD comic uri...");
+            try
+            {
+                this._logger.LogInformation("Fetching XKCD comic uri...");
 
-            return Ok(await this.ComicUrlService.GetXkcdComic());
+                return Ok(new { comicUrl = await this.ComicUrlService.GetXkcdComic() });
+            }
+            catch (Exception exception)
+            {
+                this._logger.LogError("Error while processing request.", exception);
+
+                return StatusCode(500, new { errorMessage = "Something went wrong" });
+            }
         }
 
         [HttpGet]
         [Route("[controller]/calvinandhobbes")]
         public async Task<IActionResult> GetCalvinAndHobbesComicUri()
         {
-            this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
+            try
+            {
+                this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
 
-            return Ok(await this.ComicUrlService.GetCalvinAndHobbesComic());
+                return Ok(new { comicUrl = await this.ComicUrlService.GetCalvinAndHobbesComic() });
+            }
+            catch (Exception exception)
+            {
+                this._logger.LogError("Error while processing request.", exception);
+
+                return StatusCode(500, new { errorMessage = "Something went wrong" });
+            }
         }
     }
 }
