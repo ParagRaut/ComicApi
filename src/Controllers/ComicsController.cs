@@ -33,13 +33,13 @@ namespace RandomComicApi.Controllers
             {
                 this._logger.LogInformation("Fetching random comic uri...");
 
-                return Ok(new { comicUrl = await this.ComicUrlService.GetRandomComic() });
+                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetRandomComic() });
             }
             catch (Exception exception)
             {
                 this._logger.LogError("Error while processing request.", exception);
 
-                return StatusCode(500, new { errorMessage = "Something went wrong" });
+                return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
         }
 
@@ -54,13 +54,13 @@ namespace RandomComicApi.Controllers
             {
                 this._logger.LogInformation("Fetching Dilbert comic uri...");
 
-                return Ok(new { comicUrl = await this.ComicUrlService.GetDilbertComic() });
+                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetDilbertComic() });
             }
             catch (Exception exception)
             {
                 this._logger.LogError("Error while processing request.", exception);
 
-                return StatusCode(500, new { errorMessage = "Something went wrong" });
+                return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
         }
 
@@ -75,13 +75,13 @@ namespace RandomComicApi.Controllers
             {
                 this._logger.LogInformation("Fetching Garfield comic uri...");
 
-                return Ok(new { comicUrl = await this.ComicUrlService.GetGarfieldComic() });
+                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetGarfieldComic() });
             }
             catch (Exception exception)
             {
                 this._logger.LogError("Error while processing request.", exception);
 
-                return StatusCode(500, new { errorMessage = "Something went wrong" });
+                return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
         }
 
@@ -96,13 +96,13 @@ namespace RandomComicApi.Controllers
             {
                 this._logger.LogInformation("Fetching XKCD comic uri...");
 
-                return Ok(new { comicUrl = await this.ComicUrlService.GetXkcdComic() });
+                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetXkcdComic() });
             }
             catch (Exception exception)
             {
                 this._logger.LogError("Error while processing request.", exception);
 
-                return StatusCode(500, new { errorMessage = "Something went wrong" });
+                return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
         }
 
@@ -117,13 +117,13 @@ namespace RandomComicApi.Controllers
             {
                 this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
 
-                return Ok(new { comicUrl = await this.ComicUrlService.GetCalvinAndHobbesComic() });
+                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetCalvinAndHobbesComic() });
             }
             catch (Exception exception)
             {
                 this._logger.LogError("Error while processing request.", exception);
 
-                return StatusCode(500, new { errorMessage = "Something went wrong" });
+                return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
         }
     }
