@@ -28,7 +28,7 @@ namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldServi
             var random = new Random();
             var startDate = new DateTime(1978, 6, 19);
             int dateRange = (DateTime.Today - startDate).Days;
-            return startDate.AddDays(random.Next(dateRange)).ToString("yyyy'/'MM'/'dd");
+            return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
         }
 
         private string GetUri(string source)
