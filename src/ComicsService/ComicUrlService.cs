@@ -41,7 +41,7 @@ namespace RandomComicApi.ComicsService
 
         public Task<string> GetRandomComic()
         {
-            ComicEnum comicName = this.ChooseRandomComicSource();
+            ComicEnum comicName = ChooseRandomComicSource();
 
             switch (comicName)
             {
@@ -65,7 +65,7 @@ namespace RandomComicApi.ComicsService
             return this.ComicImageUri;
         }
 
-        private ComicEnum ChooseRandomComicSource()
+        private static ComicEnum ChooseRandomComicSource()
         {
             var random = new Random();
             return (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);

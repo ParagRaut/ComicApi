@@ -67,6 +67,7 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
 
             return comicImage.Img;
         }
+
         private async Task<FileResult> DownloadImageAndReturn(int comicId)
         {
             Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
