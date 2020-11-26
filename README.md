@@ -1,10 +1,10 @@
 # RandomComicApi
 This api will fetch random comic strips from XKCD and Garfield and Dilbert comic sources
 
-To build/run this, you need to have .netcore 3.1 or higher installed
+To build/run this, you need to have .net 5.0.100 or higher installed
 
 Visit following url to download appropriate .netcore sdk version <br/>
-URL: https://dotnet.microsoft.com/download/dotnet-core
+URL: https://dotnet.microsoft.com/download/dotnet/5.0
 
 To run:
 
