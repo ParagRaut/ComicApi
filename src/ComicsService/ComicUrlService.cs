@@ -13,23 +13,23 @@ namespace RandomComicApi.ComicsService
     public class ComicUrlService : IComicUrlService
     {
         public ComicUrlService(
-            [NotNull] IXkcdComic xkcdComic,
-            [NotNull] IGarfield garfieldComics,
-            [NotNull] IDilbert dilbertComics,
-            [NotNull] ICalvinAndHobbes calvinAndHobbesComics,
+            [NotNull] IXkcdComic xkcd,
+            [NotNull] IGarfield garfield,
+            [NotNull] IDilbert dilbert,
+            [NotNull] ICalvinAndHobbes calvinAndHobbes,
             ILogger<ComicUrlService> logger)
         {
-            _xkcdComic = xkcdComic;
-            _garfieldComics = garfieldComics;
-            _dilbertComics = dilbertComics;
-            _calvinAndHobbesComics = calvinAndHobbesComics;
+            _xkcd = xkcd;
+            _garfield = garfield;
+            _dilbert = dilbert;
+            _calvinAndHobbes = calvinAndHobbes;
             _logger = logger;
         }
 
-        private readonly IXkcdComic _xkcdComic;
-        private readonly IGarfield _garfieldComics;
-        private readonly IDilbert _dilbertComics;
-        private readonly ICalvinAndHobbes _calvinAndHobbesComics;
+        private readonly IXkcdComic _xkcd;
+        private readonly IGarfield _garfield;
+        private readonly IDilbert _dilbert;
+        private readonly ICalvinAndHobbes _calvinAndHobbes;
         private readonly ILogger _logger;
 
         public Task<string> GetRandomComic()
@@ -57,28 +57,28 @@ namespace RandomComicApi.ComicsService
         {
             _logger.LogInformation($"Returning Dilbert comic strip");
 
-            return await _dilbertComics.GetDilbertComicUri();
+            return await _dilbert.GetDilbertComicUri();
         }
 
         public async Task<string> GetGarfieldComic()
         {
             _logger.LogInformation($"Returning Garfield comic strip");
 
-            return await _garfieldComics.GetGarfieldComicUri();
+            return await _garfield.GetGarfieldComicUri();
         }
 
         public async Task<string> GetXkcdComic()
         {
             _logger.LogInformation($"Returning XKCD comic strip");
 
-            return await _xkcdComic.GetXkcdComicUri();
+            return await _xkcd.GetXkcdComicUri();
         }
 
         public async Task<string> GetCalvinAndHobbesComic()
         {
             _logger.LogInformation($"Returning Calvin and Hobbes comic strip");
 
-            return await _calvinAndHobbesComics.CalvinAndHobbesComicUri();
+            return await _calvinAndHobbes.CalvinAndHobbesComicUri();
         }
     }
 }

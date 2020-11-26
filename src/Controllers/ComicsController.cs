@@ -14,12 +14,11 @@ namespace RandomComicApi.Controllers
             IComicUrlService comicUrlService,
             ILogger<ComicsController> logger)
         {
-            ComicUrlService = comicUrlService;
+            _comicUrlService = comicUrlService;
             _logger = logger;
         }
 
-        private IComicUrlService ComicUrlService { get; }
-
+        private readonly IComicUrlService _comicUrlService;
         private readonly ILogger _logger;
 
         [HttpGet]
@@ -33,7 +32,7 @@ namespace RandomComicApi.Controllers
             {
                 _logger.LogInformation("Fetching random comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetRandomComic() });
+                return Ok(new ComicModel { ComicUrl = await _comicUrlService.GetRandomComic() });
             }
             catch (Exception exception)
             {
@@ -54,7 +53,7 @@ namespace RandomComicApi.Controllers
             {
                 _logger.LogInformation("Fetching Dilbert comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetDilbertComic() });
+                return Ok(new ComicModel { ComicUrl = await _comicUrlService.GetDilbertComic() });
             }
             catch (Exception exception)
             {
@@ -75,7 +74,7 @@ namespace RandomComicApi.Controllers
             {
                 _logger.LogInformation("Fetching Garfield comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetGarfieldComic() });
+                return Ok(new ComicModel { ComicUrl = await _comicUrlService.GetGarfieldComic() });
             }
             catch (Exception exception)
             {
@@ -96,7 +95,7 @@ namespace RandomComicApi.Controllers
             {
                 _logger.LogInformation("Fetching XKCD comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetXkcdComic() });
+                return Ok(new ComicModel { ComicUrl = await _comicUrlService.GetXkcdComic() });
             }
             catch (Exception exception)
             {
@@ -117,7 +116,7 @@ namespace RandomComicApi.Controllers
             {
                 _logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetCalvinAndHobbesComic() });
+                return Ok(new ComicModel { ComicUrl = await _comicUrlService.GetCalvinAndHobbesComic() });
             }
             catch (Exception exception)
             {
