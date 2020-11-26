@@ -14,8 +14,8 @@ namespace RandomComicApi.Controllers
             IComicUrlService comicUrlService,
             ILogger<ComicsController> logger)
         {
-            this.ComicUrlService = comicUrlService;
-            this._logger = logger;
+            ComicUrlService = comicUrlService;
+            _logger = logger;
         }
 
         private IComicUrlService ComicUrlService { get; }
@@ -31,13 +31,13 @@ namespace RandomComicApi.Controllers
         {
             try
             {
-                this._logger.LogInformation("Fetching random comic uri...");
+                _logger.LogInformation("Fetching random comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetRandomComic() });
+                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetRandomComic() });
             }
             catch (Exception exception)
             {
-                this._logger.LogError("Error while processing request.", exception);
+                _logger.LogError("Error while processing request.", exception);
 
                 return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
@@ -52,13 +52,13 @@ namespace RandomComicApi.Controllers
         {
             try
             {
-                this._logger.LogInformation("Fetching Dilbert comic uri...");
+                _logger.LogInformation("Fetching Dilbert comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetDilbertComic() });
+                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetDilbertComic() });
             }
             catch (Exception exception)
             {
-                this._logger.LogError("Error while processing request.", exception);
+                _logger.LogError("Error while processing request.", exception);
 
                 return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
@@ -73,13 +73,13 @@ namespace RandomComicApi.Controllers
         {
             try
             {
-                this._logger.LogInformation("Fetching Garfield comic uri...");
+                _logger.LogInformation("Fetching Garfield comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetGarfieldComic() });
+                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetGarfieldComic() });
             }
             catch (Exception exception)
             {
-                this._logger.LogError("Error while processing request.", exception);
+                _logger.LogError("Error while processing request.", exception);
 
                 return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
@@ -94,13 +94,13 @@ namespace RandomComicApi.Controllers
         {
             try
             {
-                this._logger.LogInformation("Fetching XKCD comic uri...");
+                _logger.LogInformation("Fetching XKCD comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetXkcdComic() });
+                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetXkcdComic() });
             }
             catch (Exception exception)
             {
-                this._logger.LogError("Error while processing request.", exception);
+                _logger.LogError("Error while processing request.", exception);
 
                 return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
@@ -115,13 +115,13 @@ namespace RandomComicApi.Controllers
         {
             try
             {
-                this._logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
+                _logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
 
-                return Ok(new ComicModel { ComicUrl = await this.ComicUrlService.GetCalvinAndHobbesComic() });
+                return Ok(new ComicModel { ComicUrl = await ComicUrlService.GetCalvinAndHobbesComic() });
             }
             catch (Exception exception)
             {
-                this._logger.LogError("Error while processing request.", exception);
+                _logger.LogError("Error while processing request.", exception);
 
                 return StatusCode(500, new ErrorModel { ErrorMessage = "Something went wrong" });
             }
