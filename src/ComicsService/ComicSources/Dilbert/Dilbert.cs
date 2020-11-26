@@ -6,7 +6,7 @@ namespace RandomComicApi.ComicsService.ComicSources.Dilbert
     {
         public async Task<string> GetDilbertComicUri()
         {
-            return await Service.GetComicUrl();
+            return await Service.GetComicUri();
         }
     }
 }

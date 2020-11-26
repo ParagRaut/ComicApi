@@ -8,7 +8,7 @@ namespace RandomComicApi.ComicsService.ComicSources.Garfield
 {
     public class Service
     {
-        public static async Task<string> GetComicUrl()
+        public static async Task<string> GetComicUri()
         {
             string dateRange = GetRandomDateRange();
 

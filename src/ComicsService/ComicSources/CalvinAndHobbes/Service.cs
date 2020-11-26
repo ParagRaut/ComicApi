@@ -7,7 +7,7 @@ namespace RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes
 {
     public class Service
     {
-        public static async Task<string> GetComicUrl()
+        public static async Task<string> GetComicUri()
         {
             var baseUrl = new Uri($"https://www.gocomics.com/random/calvinandhobbes");
 

@@ -7,7 +7,7 @@ namespace RandomComicApi.ComicsService.ComicSources.Dilbert
 {
     public class Service
     {
-        public static async Task<string> GetComicUrl()
+        public static async Task<string> GetComicUri()
         {
             string dateRange = GetRandomDateRange();
 
