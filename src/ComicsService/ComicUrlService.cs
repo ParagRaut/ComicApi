@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using RandomComicApi.ComicsService.ComicSources;
 using RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
-using RandomComicApi.ComicsService.ComicSources.DilbertComics;
-using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
-using RandomComicApi.ComicsService.ComicSources.XKCD;
+using RandomComicApi.ComicsService.ComicSources.Dilbert;
+using RandomComicApi.ComicsService.ComicSources.Garfield;
+using RandomComicApi.ComicsService.ComicSources.Xkcd;
 
 namespace RandomComicApi.ComicsService
 {
@@ -14,22 +14,22 @@ namespace RandomComicApi.ComicsService
     {
         public ComicUrlService(
             [NotNull] IXkcdComic xkcdComic,
-            [NotNull] IGarfieldComics garfieldComics,
-            [NotNull] IDilbertComics dilbertComics,
-            [NotNull] ICalvinAndHobbesComics calvinAndHobbesComics,
+            [NotNull] IGarfield garfieldComics,
+            [NotNull] IDilbert dilbertComics,
+            [NotNull] ICalvinAndHobbes calvinAndHobbesComics,
             ILogger<ComicUrlService> logger)
         {
-            this._xkcdComic = xkcdComic;
-            this._garfieldComics = garfieldComics;
-            this._dilbertComics = dilbertComics;
-            this._calvinAndHobbesComics = calvinAndHobbesComics;
-            this._logger = logger;
+            _xkcdComic = xkcdComic;
+            _garfieldComics = garfieldComics;
+            _dilbertComics = dilbertComics;
+            _calvinAndHobbesComics = calvinAndHobbesComics;
+            _logger = logger;
         }
 
         private readonly IXkcdComic _xkcdComic;
-        private readonly IGarfieldComics _garfieldComics;
-        private readonly IDilbertComics _dilbertComics;
-        private readonly ICalvinAndHobbesComics _calvinAndHobbesComics;
+        private readonly IGarfield _garfieldComics;
+        private readonly IDilbert _dilbertComics;
+        private readonly ICalvinAndHobbes _calvinAndHobbesComics;
         private readonly ILogger _logger;
 
         public Task<string> GetRandomComic()
@@ -38,10 +38,10 @@ namespace RandomComicApi.ComicsService
 
             return comicName switch
             {
-                ComicEnum.Garfield => this.GetGarfieldComic(),
-                ComicEnum.Xkcd => this.GetXkcdComic(),
-                ComicEnum.Dilbert => this.GetDilbertComic(),
-                ComicEnum.CalvinAndHobbes => this.GetCalvinAndHobbesComic(),
+                ComicEnum.Garfield => GetGarfieldComic(),
+                ComicEnum.Xkcd => GetXkcdComic(),
+                ComicEnum.Dilbert => GetDilbertComic(),
+                ComicEnum.CalvinAndHobbes => GetCalvinAndHobbesComic(),
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -55,30 +55,30 @@ namespace RandomComicApi.ComicsService
 
         public async Task<string> GetDilbertComic()
         {
-            this._logger.LogInformation($"Returning Dilbert comic strip");
+            _logger.LogInformation($"Returning Dilbert comic strip");
 
-            return await this._dilbertComics.GetDilbertComicUri();
+            return await _dilbertComics.GetDilbertComicUri();
         }
 
         public async Task<string> GetGarfieldComic()
         {
-            this._logger.LogInformation($"Returning Garfield comic strip");
+            _logger.LogInformation($"Returning Garfield comic strip");
 
-            return await this._garfieldComics.GetGarfieldComicUri();
+            return await _garfieldComics.GetGarfieldComicUri();
         }
 
         public async Task<string> GetXkcdComic()
         {
-            this._logger.LogInformation($"Returning XKCD comic strip");
+            _logger.LogInformation($"Returning XKCD comic strip");
 
-            return await this._xkcdComic.GetXkcdComicUri();
+            return await _xkcdComic.GetXkcdComicUri();
         }
 
         public async Task<string> GetCalvinAndHobbesComic()
         {
-            this._logger.LogInformation($"Returning Calvin and Hobbes comic strip");
+            _logger.LogInformation($"Returning Calvin and Hobbes comic strip");
 
-            return await this._calvinAndHobbesComics.CalvinAndHobbesComicUri();
+            return await _calvinAndHobbesComics.CalvinAndHobbesComicUri();
         }
     }
 }

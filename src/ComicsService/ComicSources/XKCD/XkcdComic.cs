@@ -4,24 +4,24 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using RandomComicApi.ComicsService.ComicSources.XKCD.Models;
+using RandomComicApi.ComicsService.ComicSources.Xkcd.Models;
 
-namespace RandomComicApi.ComicsService.ComicSources.XKCD
+namespace RandomComicApi.ComicsService.ComicSources.Xkcd
 {
     public class XkcdComic : IXkcdComic
     {
         public XkcdComic(IXKCD xKcdComics)
         {
-            this.XkcdService = xKcdComics;
+            XkcdService = xKcdComics;
         }
 
         private IXKCD XkcdService { get; }
 
         public async Task<FileResult> GetXkcdComic()
         {
-            int comicId = await this.GetRandomComicNumber();
+            int comicId = await GetRandomComicNumber();
 
-            using (Task<FileResult> comicImageFile = this.DownloadImageAndReturn(comicId))
+            using (Task<FileResult> comicImageFile = DownloadImageAndReturn(comicId))
             {
                 if (comicImageFile.Status != TaskStatus.RanToCompletion && !comicImageFile.IsFaulted)
                 {
@@ -39,16 +39,16 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
 
         public async Task<string> GetXkcdComicUri()
         {
-            int comicId = await this.GetRandomComicNumber();
+            int comicId = await GetRandomComicNumber();
 
-            string comicImageUri = await this.GetImageUri(comicId);
+            string comicImageUri = await GetImageUri(comicId);
             
             return comicImageUri;
         }
 
         private async Task<int> GetLatestComicId()
         {
-            Comic response = await this.XkcdService.GetLatestComicAsync();
+            Comic response = await XkcdService.GetLatestComicAsync();
             Debug.Assert(response.Num != null, "response.Num != null");
 
             return (int)response.Num.Value;
@@ -56,21 +56,21 @@ namespace RandomComicApi.ComicsService.ComicSources.XKCD
 
         private async Task<int> GetRandomComicNumber()
         {
-            int maxId = await this.GetLatestComicId();
+            int maxId = await GetLatestComicId();
             var randomNumber = new Random();
             return randomNumber.Next(maxId);
         }
 
         private async Task<string> GetImageUri(int comicId)
         {
-            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+            Comic comicImage = await XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
 
             return comicImage.Img;
         }
 
         private async Task<FileResult> DownloadImageAndReturn(int comicId)
         {
-            Comic comicImage = await this.XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
+            Comic comicImage = await XkcdService.GetComicByIdAsync(comicId).ConfigureAwait(false);
 
             var imgUrl = new Uri(comicImage.Img, UriKind.Absolute);
 

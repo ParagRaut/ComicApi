@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using RandomComicApi.ComicsService;
 using RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
-using RandomComicApi.ComicsService.ComicSources.DilbertComics;
-using RandomComicApi.ComicsService.ComicSources.GarfieldComics;
-using RandomComicApi.ComicsService.ComicSources.XKCD;
+using RandomComicApi.ComicsService.ComicSources.Dilbert;
+using RandomComicApi.ComicsService.ComicSources.Garfield;
+using RandomComicApi.ComicsService.ComicSources.Xkcd;
 
 namespace RandomComicApi
 {
@@ -53,9 +53,9 @@ namespace RandomComicApi
                 return new XKCD(httpClient, true);
             });
             services.AddSingleton<IXkcdComic, XkcdComic>();
-            services.AddSingleton<IGarfieldComics, GarfieldComics>();
-            services.AddSingleton<IDilbertComics, DilbertComics>();
-            services.AddSingleton<ICalvinAndHobbesComics, CalvinAndHobbesComics>();
+            services.AddSingleton<IGarfield, Garfield>();
+            services.AddSingleton<IDilbert, Dilbert>();
+            services.AddSingleton<ICalvinAndHobbes, CalvinAndHobbes>();
             services.AddSingleton<IComicUrlService, ComicUrlService>();
         }
 

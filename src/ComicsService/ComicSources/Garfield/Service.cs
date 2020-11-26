@@ -4,11 +4,11 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
-namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldService
+namespace RandomComicApi.ComicsService.ComicSources.Garfield
 {
-    public class GarfieldServiceApi
+    public class Service
     {
-        public static async Task<string> GetGarfieldComicsUrl()
+        public static async Task<string> GetComicUrl()
         {
             string dateRange = GetRandomDateRange();
 
@@ -18,7 +18,7 @@ namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldServi
 
             string source = await httpClient.GetStringAsync(baseUrl);
 
-            string imageLink = GetUri(source);
+            string imageLink = GetImageUri(source);
 
             return imageLink;
         }
@@ -31,7 +31,7 @@ namespace RandomComicApi.ComicsService.ComicSources.GarfieldComics.GarfieldServi
             return startDate.AddDays(random.Next(dateRange)).ToString("yyyy/MM/dd");
         }
 
-        private static string GetUri(string source)
+        private static string GetImageUri(string source)
         {
             var document = new HtmlDocument();
 
