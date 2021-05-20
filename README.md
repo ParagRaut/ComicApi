@@ -19,6 +19,8 @@ dotnet build
 dotnet run
 ```
 
+Check it live here: [ComicsApi](https://random-comics-api.herokuapp.com/index.html)
+
 Swagger UI will run automatically in browser for you to try out all endpoints
 
 For Docker support use Visual Studio on Windows
