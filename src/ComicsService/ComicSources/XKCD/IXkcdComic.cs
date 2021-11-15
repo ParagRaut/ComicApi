@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace RandomComicApi.ComicsService.ComicSources.Xkcd;
 
-namespace RandomComicApi.ComicsService.ComicSources.Xkcd
+public interface IXkcdComic
 {
-    public interface IXkcdComic
-    {
-        Task<string> GetXkcdComicUri();
-    }
+    Task<string> GetXkcdComicUri();
 }

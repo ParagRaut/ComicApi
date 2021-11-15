@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿namespace RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
 
-namespace RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes
+public interface ICalvinAndHobbes
 {
-    public interface ICalvinAndHobbes
-    {
-        Task<string> CalvinAndHobbesComicUri();
-    }
+    Task<string> CalvinAndHobbesComicUri();
 }

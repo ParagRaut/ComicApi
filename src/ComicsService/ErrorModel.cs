@@ -1,8 +1,6 @@
-﻿using System;
-namespace RandomComicApi.ComicsService
+﻿namespace RandomComicApi.ComicsService;
+
+public class ErrorModel
 {
-    public class ErrorModel
-    {
-        public string ErrorMessage { get; set; }
-    }
+    public string? ErrorMessage { get; set; }
 }

@@ -1,8 +1,6 @@
-﻿using System;
-namespace RandomComicApi.ComicsService
+﻿namespace RandomComicApi.ComicsService;
+
+public class ComicModel
 {
-    public class ComicModel
-    {
-        public string ComicUrl { get; set; }
-    }
+    public string? ComicUrl { get; set; }
 }
