@@ -66,16 +66,14 @@ app.MapGet("/random", async (XKCDService service) =>
     var comicName = ChooseRandomComicSource(); 
     return Results.Ok(comicName switch 
     { 
-        ComicEnum.Xkcd => await service.GetComicUri(),
-        ComicEnum.Garfield => await GarfieldService.GetComicUri(),
-        ComicEnum.Dilbert => await DilbertService.GetComicUri(),
-        ComicEnum.CalvinAndHobbes => await CalvinAndHobbesService.GetComicUri(),
+        ComicEnum.XKCD => new ComicModel(await service.GetComicUri()),
+        ComicEnum.Garfield => new ComicModel(await GarfieldService.GetComicUri()),
+        ComicEnum.Dilbert => new ComicModel(await DilbertService.GetComicUri()),
+        ComicEnum.CalvinAndHobbes => new ComicModel(await CalvinAndHobbesService.GetComicUri()),
         _ => throw new ArgumentOutOfRangeException() 
         }); 
 })
 .Produces<string>(200);
-
-app.MapGet("/test", () => ChooseRandomComicSource());
 
 app.Run();
 
