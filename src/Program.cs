@@ -47,7 +47,7 @@ if (app.Environment.IsDevelopment())
             });
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 Random random = new(6);
 
