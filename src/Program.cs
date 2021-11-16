@@ -29,7 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IXKCD, XKCD>(p => new XKCD(new HttpClient(), true));
 
-builder.Services.AddScoped<IXKCDService, XKCDService>();
+builder.Services.AddScoped<XKCDService>();
 
 var app = builder.Build();
 
@@ -53,28 +53,30 @@ Random random = new(6);
 
 ComicEnum ChooseRandomComicSource() => (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
 
-app.MapGet("/dilbert", async () => await DilbertService.GetComicUri()).Produces<string>(200).Produces(500);
+app.MapGet("/dilbert", async () => new ComicModel(await DilbertService.GetComicUri())).Produces<ComicModel>(200);
 
-app.MapGet("/garfield", async () => await GarfieldService.GetComicUri()).Produces<string>(200).Produces(500);
+app.MapGet("/garfield", async () => new ComicModel(await GarfieldService.GetComicUri())).Produces<string>(200);
 
-app.MapGet("/xkcd", async (IXKCDService service) => await service.GetComicUri()).Produces<string>(200).Produces(500);
+app.MapGet("/xkcd", async (XKCDService service) => new ComicModel(await service.GetComicUri())).Produces<string>(200);
 
-app.MapGet("/calvinandhobbes", async () => await CalvinAndHobbesService.GetComicUri()).Produces<string>(200).Produces(500);
+app.MapGet("/calvinandhobbes", async () => new ComicModel(await CalvinAndHobbesService.GetComicUri())).Produces<string>(200);
 
-app.MapGet("/random", async (IXKCDService service) =>
-{
-    var comicName = ChooseRandomComicSource();
-
-    return Results.Ok(comicName switch
-    {
+app.MapGet("/random", async (XKCDService service) => 
+{ 
+    var comicName = ChooseRandomComicSource(); 
+    return Results.Ok(comicName switch 
+    { 
         ComicEnum.Xkcd => await service.GetComicUri(),
         ComicEnum.Garfield => await GarfieldService.GetComicUri(),
         ComicEnum.Dilbert => await DilbertService.GetComicUri(),
         ComicEnum.CalvinAndHobbes => await CalvinAndHobbesService.GetComicUri(),
-        _ => throw new ArgumentOutOfRangeException()
-    });
-}).Produces<string>(200).Produces(500);
+        _ => throw new ArgumentOutOfRangeException() 
+        }); 
+})
+.Produces<string>(200);
 
 app.MapGet("/test", () => ChooseRandomComicSource());
 
 app.Run();
+
+record ComicModel(string Url);

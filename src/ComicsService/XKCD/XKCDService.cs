@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace RandomComicApi.ComicsService.XKCD;
 
-public class XKCDService : IXKCDService
+public class XKCDService
 {
     public XKCDService(IXKCD xKcdComics)
     {
