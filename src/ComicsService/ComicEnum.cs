@@ -1,4 +1,4 @@
-﻿namespace RandomComicApi.ComicsService.ComicSources;
+﻿namespace RandomComicApi.ComicsService;
 
 public enum ComicEnum
 {
@@ -7,3 +7,4 @@ public enum ComicEnum
     Dilbert,
     CalvinAndHobbes
 }
+

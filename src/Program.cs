@@ -1,9 +1,10 @@
 using Microsoft.OpenApi.Models;
 using RandomComicApi.ComicsService;
-using RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
-using RandomComicApi.ComicsService.ComicSources.Dilbert;
-using RandomComicApi.ComicsService.ComicSources.Garfield;
-using RandomComicApi.ComicsService.ComicSources.Xkcd;
+using RandomComicApi.ComicsService.CalvinAndHobbes;
+using RandomComicApi.ComicsService.Dilbert;
+using RandomComicApi.ComicsService.Garfield;
+using RandomComicApi.ComicsService.XKCD;
+using RandomComicApi.ComicsService.XKCD.Generated;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,20 +27,9 @@ builder.Services.AddSwaggerGen(c =>
                 });
             });
 
-builder.Services.AddHttpClient<IXKCD, XKCD>();
-builder.Services.AddSingleton<IXKCD, XKCD>(p =>
-{
-    HttpClient httpClient = p.GetRequiredService<IHttpClientFactory>()
-        .CreateClient(nameof(IXKCD));
+builder.Services.AddScoped<IXKCD, XKCD>(p => new XKCD(new HttpClient(), true));
 
-    return new XKCD(httpClient, true);
-});            
-
-builder.Services.AddSingleton<IXkcdComic, XkcdComic>();
-builder.Services.AddSingleton<IGarfield, Garfield>();
-builder.Services.AddSingleton<IDilbert, Dilbert>();
-builder.Services.AddSingleton<ICalvinAndHobbes, CalvinAndHobbes>();
-builder.Services.AddSingleton<IComicUrlService, ComicUrlService>();
+builder.Services.AddScoped<IXKCDService, XKCDService>();
 
 var app = builder.Build();
 
@@ -59,89 +49,32 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+Random random = new(6);
 
-app.MapGet("/random", async (IComicUrlService service, ILogger<ComicUrlService> _logger) =>
+ComicEnum ChooseRandomComicSource() => (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
+
+app.MapGet("/dilbert", async () => await DilbertService.GetComicUri()).Produces<string>(200).Produces(500);
+
+app.MapGet("/garfield", async () => await GarfieldService.GetComicUri()).Produces<string>(200).Produces(500);
+
+app.MapGet("/xkcd", async (IXKCDService service) => await service.GetComicUri()).Produces<string>(200).Produces(500);
+
+app.MapGet("/calvinandhobbes", async () => await CalvinAndHobbesService.GetComicUri()).Produces<string>(200).Produces(500);
+
+app.MapGet("/random", async (IXKCDService service) =>
 {
-    try
+    var comicName = ChooseRandomComicSource();
+
+    return Results.Ok(comicName switch
     {
-        _logger.LogInformation("Fetching random comic uri...");
-        
-        return Results.Ok(new ComicModel {  ComicUrl = await service.GetRandomComic() });
-    }
-    catch (Exception exception)
-    {
-        _logger.LogError("Error while processing request.", exception);
+        ComicEnum.Xkcd => await service.GetComicUri(),
+        ComicEnum.Garfield => await GarfieldService.GetComicUri(),
+        ComicEnum.Dilbert => await DilbertService.GetComicUri(),
+        ComicEnum.CalvinAndHobbes => await CalvinAndHobbesService.GetComicUri(),
+        _ => throw new ArgumentOutOfRangeException()
+    });
+}).Produces<string>(200).Produces(500);
 
-        return Results.Json(new ErrorModel { ErrorMessage = "Something went wrong" });
-    }
-});
-
-app.MapGet("/dilbert", async (IComicUrlService service, ILogger<ComicUrlService> _logger) =>
-{
-    try
-    {
-        _logger.LogInformation("Fetching Dilbert comic uri...");
-
-        return Results.Ok(new ComicModel { ComicUrl = await service.GetDilbertComic() });
-    }
-    catch (Exception exception)
-    {
-        _logger.LogError("Error while processing request.", exception);
-
-        return Results.Json(new ErrorModel { ErrorMessage = "Something went wrong" });
-    }
-});
-
-
-app.MapGet("/garfield", async (IComicUrlService service, ILogger<ComicUrlService> _logger) =>
-{
-    try
-    {
-        _logger.LogInformation("Fetching Garfield comic uri...");
-
-        return Results.Ok(new ComicModel { ComicUrl = await service.GetGarfieldComic() });
-    }
-    catch (Exception exception)
-    {
-        _logger.LogError("Error while processing request.", exception);
-
-        return Results.Json(new ErrorModel { ErrorMessage = "Something went wrong" });
-    }
-});
-
-
-app.MapGet("/xkcd", async (IComicUrlService service, ILogger<ComicUrlService> _logger) =>
-{
-    try
-    {
-        _logger.LogInformation("Fetching XKCD comic uri...");
-
-        return Results.Ok(new ComicModel { ComicUrl = await service.GetXkcdComic() });
-    }
-    catch (Exception exception)
-    {
-        _logger.LogError("Error while processing request.", exception);
-
-        return Results.Json(new ErrorModel { ErrorMessage = "Something went wrong" });
-    }
-});
-
-
-app.MapGet("/calvinandhobbes", async (IComicUrlService service, ILogger<ComicUrlService> _logger) =>
-{
-    try
-    {
-        _logger.LogInformation("Fetching Calvin and Hobbes comic uri...");
-
-        return Results.Ok(new ComicModel { ComicUrl = await service.GetCalvinAndHobbesComic() });
-    }
-    catch (Exception exception)
-    {
-        _logger.LogError("Error while processing request.", exception);
-
-        return Results.Json(new ErrorModel { ErrorMessage = "Something went wrong" });
-    }
-});
-
+app.MapGet("/test", () => ChooseRandomComicSource());
 
 app.Run();

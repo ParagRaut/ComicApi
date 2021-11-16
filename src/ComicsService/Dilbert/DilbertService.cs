@@ -1,8 +1,8 @@
 ﻿using HtmlAgilityPack;
 
-namespace RandomComicApi.ComicsService.ComicSources.Dilbert;
+namespace RandomComicApi.ComicsService.Dilbert;
 
-public class Service
+public static class DilbertService
 {
     public static async Task<string> GetComicUri()
     {

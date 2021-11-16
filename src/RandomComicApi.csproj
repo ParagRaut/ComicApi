@@ -11,5 +11,9 @@
     <PackageReference Include="HtmlAgilityPack.NetCore" Version="1.5.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ComicsService\" />
+  </ItemGroup>
  
 </Project>

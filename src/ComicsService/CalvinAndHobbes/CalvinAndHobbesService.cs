@@ -1,8 +1,8 @@
 ﻿using HtmlAgilityPack;
 
-namespace RandomComicApi.ComicsService.ComicSources.CalvinAndHobbes;
+namespace RandomComicApi.ComicsService.CalvinAndHobbes;
 
-public class Service
+public static class CalvinAndHobbesService
 {
     public static async Task<string> GetComicUri()
     {
@@ -22,7 +22,6 @@ public class Service
         var document = new HtmlDocument();
 
         document.LoadHtml(source);
-
         const string imageClassNode = "//a[contains(@class, 'js-item-comic-link')]/picture/img";
 
         HtmlNode imageNode = document.DocumentNode.SelectSingleNode(imageClassNode);
