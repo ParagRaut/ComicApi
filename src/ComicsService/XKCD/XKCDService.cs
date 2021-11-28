@@ -1,5 +1,6 @@
 ﻿using RandomComicApi.ComicsService.XKCD.Generated;
 using RandomComicApi.ComicsService.XKCD.Generated.Models;
+using System;
 using System.Diagnostics;
 
 namespace RandomComicApi.ComicsService.XKCD;
@@ -25,8 +26,6 @@ public class XKCDService
     private async Task<int> GetLatestComicId()
     {
         Comic response = await Service.GetLatestComicAsync();
-
-        Debug.Assert(response.Num != null, "response.Num != null");
 
         return (int)response.Num.Value;
     }

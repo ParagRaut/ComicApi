@@ -2,15 +2,18 @@
 
 namespace RandomComicApi.ComicsService.CalvinAndHobbes;
 
-public static class CalvinAndHobbesService
+public class CalvinAndHobbesService
 {
-    public static async Task<string> GetComicUri()
+    private readonly HttpClient _httpClient;
+
+    public CalvinAndHobbesService (HttpClient httpClient)
+	{
+        _httpClient = httpClient;
+    }
+
+    public async Task<string> GetComicUri()
     {
-        var baseUrl = new Uri($"https://www.gocomics.com/random/calvinandhobbes");
-
-        var httpClient = new HttpClient();
-
-        string source = await httpClient.GetStringAsync(baseUrl);
+        string source = await _httpClient.GetStringAsync("calvinandhobbes");
 
         string imageLink = GetImageUri(source);
 
