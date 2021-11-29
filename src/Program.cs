@@ -4,7 +4,7 @@ using RandomComicApi.ComicsService.CalvinAndHobbes;
 using RandomComicApi.ComicsService.Dilbert;
 using RandomComicApi.ComicsService.Garfield;
 using RandomComicApi.ComicsService.XKCD;
-using RandomComicApi.ComicsService.XKCD.Generated;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +33,7 @@ builder.Services.AddHttpClient<DilbertService>(client => client.BaseAddress = ne
 
 builder.Services.AddHttpClient<GarfieldService>(client => client.BaseAddress = new Uri("https://www.gocomics.com/garfield/"));
 
-builder.Services.AddScoped<IXKCD, XKCD>(p => new XKCD(new HttpClient(), true));
+builder.Services.AddRefitClient<IXKCDService>().ConfigureHttpClient(client => client.BaseAddress = new Uri("https://xkcd.com"));
 
 builder.Services.AddScoped<XKCDService>();
 
