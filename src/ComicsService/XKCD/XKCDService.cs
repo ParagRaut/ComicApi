@@ -5,8 +5,6 @@ namespace RandomComicApi.ComicsService.XKCD;
 // ReSharper disable once InconsistentNaming
 public interface IXKCDService
 {
-    Task<string> GetComicUri();
-
     [Get("/info.0.json")]
     Task<XKCDComic> GetLatestComic();
 
