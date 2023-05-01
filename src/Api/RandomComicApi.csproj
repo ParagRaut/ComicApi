@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ComicsApp\src\ComicsProvider\ComicsProvider.csproj" />
+    <ProjectReference Include="..\ComicsProvider\ComicsProvider.csproj" />
   </ItemGroup>
  
 </Project>
