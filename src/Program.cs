@@ -1,10 +1,5 @@
+using ComicsProvider;
 using Microsoft.OpenApi.Models;
-using RandomComicApi.ComicsService;
-using RandomComicApi.ComicsService.CalvinAndHobbes;
-using RandomComicApi.ComicsService.Dilbert;
-using RandomComicApi.ComicsService.Garfield;
-using RandomComicApi.ComicsService.XKCD;
-using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +12,7 @@ builder.Services.AddSwaggerGen(c =>
                 {
                     Title = "Random Comic API",
                     Version = "v1",
-                    Description = "This api will fetch random comic strips from XKCD and Garfield and Dilbert comic sources.",
+                    Description = "This api will fetch random comic strips from XKCD and Garfield and CalvinAndHobbes comic sources.",
                     Contact = new OpenApiContact
                     {
                         Name = "Parag Raut",
@@ -27,15 +22,7 @@ builder.Services.AddSwaggerGen(c =>
                 });
             });
 
-builder.Services.AddHttpClient<CalvinAndHobbesService>(client => client.BaseAddress = new Uri("https://www.gocomics.com/random/"));
-
-builder.Services.AddHttpClient<DilbertService>(client => client.BaseAddress = new Uri("https://dilbert.com/strip/"));
-
-builder.Services.AddHttpClient<GarfieldService>(client => client.BaseAddress = new Uri("https://www.gocomics.com/garfield/"));
-
-builder.Services.AddRefitClient<IXKCDService>().ConfigureHttpClient(client => client.BaseAddress = new Uri("https://xkcd.com"));
-
-builder.Services.AddScoped<XKCDService>();
+builder.Services.AddComicsService();
 
 var app = builder.Build();
 
@@ -53,28 +40,25 @@ Random random = new(6);
 
 ComicEnum ChooseRandomComicSource() => (ComicEnum)random.Next(Enum.GetNames(typeof(ComicEnum)).Length);
 
-app.MapGet("/dilbert", async (DilbertService service) => new ComicModel(await service.GetComicUri())).Produces<ComicModel>(200);
+app.MapGet("/garfield", async (IComicsService service) => new ComicModel(await service.GetGarfieldComics())).Produces<ComicModel>(200);
 
-app.MapGet("/garfield", async (GarfieldService service) => new ComicModel(await service.GetComicUri())).Produces<ComicModel>(200);
+app.MapGet("/xkcd", async (IComicsService service) => new ComicModel(await service.GetXkcdComics())).Produces<ComicModel>(200);
 
-app.MapGet("/xkcd", async (XKCDService service) => new ComicModel(await service.GetComicUri())).Produces<ComicModel>(200);
+app.MapGet("/calvinandhobbes", async (IComicsService service) => new ComicModel(await service.GetCalvinAndHobbesComics())).Produces<ComicModel>(200);
 
-app.MapGet("/calvinandhobbes", async (CalvinAndHobbesService service) => new ComicModel(await service.GetComicUri())).Produces<ComicModel>(200);
-
-app.MapGet("/random", async (XKCDService xKCDService, CalvinAndHobbesService calvinAndHobbesService, DilbertService dilbertService, GarfieldService garfieldService) => 
+app.MapGet("/random", async (IComicsService service) => 
 { 
     var comicName = ChooseRandomComicSource(); 
     return Results.Ok(comicName switch 
     { 
-        ComicEnum.XKCD => new ComicModel(await xKCDService.GetComicUri()),
-        ComicEnum.Garfield => new ComicModel(await garfieldService.GetComicUri()),
-        ComicEnum.Dilbert => new ComicModel(await dilbertService.GetComicUri()),
-        ComicEnum.CalvinAndHobbes => new ComicModel(await calvinAndHobbesService.GetComicUri()),
+        ComicEnum.Xkcd => new ComicModel(await service.GetXkcdComics()),
+        ComicEnum.Garfield => new ComicModel(await service.GetGarfieldComics()),
+        ComicEnum.CalvinAndHobbes => new ComicModel(await service.GetCalvinAndHobbesComics()),
         _ => throw new ArgumentOutOfRangeException() 
         }); 
 })
-.Produces<ComicModel>(200);
+.Produces<ComicModel>();
 
 app.Run();
 
-record ComicModel(string Url);
+internal record ComicModel(string Url);
