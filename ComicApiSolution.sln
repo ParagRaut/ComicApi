@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomComicApi", "src\Api\RandomComicApi.csproj", "{D860DCA0-5182-402D-8598-126BD8AE802B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicApi", "src\Api\Api.csproj", "{D860DCA0-5182-402D-8598-126BD8AE802B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComicsProvider", "src\ComicsProvider\ComicsProvider.csproj", "{878F2F6A-D07C-4817-800E-4EA4BCA9614E}"
 EndProject
