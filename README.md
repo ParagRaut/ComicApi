@@ -4,7 +4,7 @@
 
 This api will fetch random comic strips from XKCD and Garfield and CalvinAndHobbes comic sources.
 
-To build/run this, you need to have .net 6.0.100 or higher installed.
+To build/run this, you need to have .NET 8 or higher installed.
 
 Visit following url to download appropriate .net sdk version <br/>
 
