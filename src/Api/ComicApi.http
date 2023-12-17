@@ -1,0 +1,19 @@
+@ComicApi_HostAddress = http://localhost:5283
+
+GET {{ComicApi_HostAddress}}/random/
+Accept: application/json
+
+###
+
+GET {{ComicApi_HostAddress}}/garfield/
+Accept: application/json
+
+###
+
+GET {{ComicApi_HostAddress}}/xkcd/
+Accept: application/json
+
+###
+
+GET {{ComicApi_HostAddress}}/calvinandhobbes/
+Accept: application/json
