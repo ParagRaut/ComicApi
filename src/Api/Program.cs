@@ -1,5 +1,3 @@
-
-
 using ComicsProvider;
 
 var builder = WebApplication.CreateBuilder(args);
