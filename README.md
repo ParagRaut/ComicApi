@@ -1,23 +1,23 @@
 # ComicApi
 
-[![.NET Core](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml)
+[![Build](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml)
 
-This api will fetch random comic strips from XKCD and Garfield and CalvinAndHobbes comic sources.
+This api will fetch random comic strips from XKCD, Garfield, and Calvin and Hobbes comic sources.
 
-To build/run this, you need to have .NET 8 or higher installed.
+To build/run this, you need to have .NET 10 or higher installed.
 
 Visit following url to download appropriate .net sdk version <br/>
 
-URL: https://dotnet.microsoft.com/download/dotnet/8.0
+URL: https://dotnet.microsoft.com/download/dotnet/10.0
 
 To run:
 
 ```zsh
 git clone https://github.com/ParagRaut/ComicApi.git
-cd ComicApi/src
+cd ComicApi/src/Api
 dotnet run
 ```
 
-Swagger UI will run automatically in browser for you to try out all endpoints
+Scalar API reference UI will run automatically in browser at `/scalar/v1` for you to try out all endpoints.
 
 Feel free to create pull requests and enjoy comic strips :)
