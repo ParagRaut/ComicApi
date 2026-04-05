@@ -21,11 +21,7 @@ app.UseHttpsRedirection();
 
 Random random = new(6);
 
-app.MapGet("/garfield", async (IComicsService service) => new ComicModel(await service.GetGarfieldComics()));
-
 app.MapGet("/xkcd", async (IComicsService service) => new ComicModel(await service.GetXkcdComics()));
-
-app.MapGet("/calvinandhobbes", async (IComicsService service) => new ComicModel(await service.GetCalvinAndHobbesComics()));
 
 app.MapGet("/random", async (IComicsService service) =>
     {
@@ -34,8 +30,6 @@ app.MapGet("/random", async (IComicsService service) =>
         return Results.Ok(comicName switch 
         { 
             ComicEnum.Xkcd => new ComicModel(await service.GetXkcdComics()),
-            ComicEnum.Garfield => new ComicModel(await service.GetGarfieldComics()),
-            ComicEnum.CalvinAndHobbes => new ComicModel(await service.GetCalvinAndHobbesComics()),
             _ => throw new ArgumentOutOfRangeException() 
         }); 
     });

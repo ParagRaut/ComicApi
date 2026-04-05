@@ -5,15 +5,5 @@ Accept: application/json
 
 ###
 
-GET {{ComicApi_HostAddress}}/garfield/
-Accept: application/json
-
-###
-
 GET {{ComicApi_HostAddress}}/xkcd/
-Accept: application/json
-
-###
-
-GET {{ComicApi_HostAddress}}/calvinandhobbes/
 Accept: application/json

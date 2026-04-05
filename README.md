@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml/badge.svg)](https://github.com/ParagRaut/ComicApi/actions/workflows/dotnetcore.yml)
 
-This api will fetch random comic strips from XKCD, Garfield, and Calvin and Hobbes comic sources.
+This api will fetch random comic strips from XKCD.
 
 To build/run this, you need to have .NET 10 or higher installed.
 
